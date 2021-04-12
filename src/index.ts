@@ -12,7 +12,11 @@ const createWindow = (): void => {
     height: 600,
     width: 800,
     fullscreen: true,
-    frame: false
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    }
   });
 
   // and load the index.html of the app.
@@ -20,6 +24,13 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools({mode: "detach"});
+  mainWindow.on('leave-full-screen', () => {
+    console.log("here")
+    setTimeout(() => {
+      mainWindow.setFullScreen(true)
+    }, 1)
+
+  })
 };
 
 // This method will be called when Electron has finished
@@ -44,5 +55,9 @@ app.on('activate', () => {
   }
 });
 
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+// eslint-disable-next-line import/no-unresolved
+import './Events/WebEvents'
