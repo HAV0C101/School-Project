@@ -6,12 +6,18 @@ import {useEffect, useState} from "react";
 const App = ():JSX.Element => {
     const [data, setData] = useState(null)
 
-    ipcRenderer.invoke('get-api-data').then(data => {
+    ipcRenderer.invoke('get-api-data').then(async data => {
+        console.log(data)
         setData(data)
     })
+    useEffect(() => {
+        setData(data.mains.map(()))
+    },[data])
     return(
         <div id={'container'}>
-            {data}
+            {data.mains.map((data) => {
+                return <p>{data.name}</p>
+            })}
         </div>
     )
 }
