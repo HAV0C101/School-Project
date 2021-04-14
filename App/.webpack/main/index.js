@@ -1375,13 +1375,17 @@ electron_1.ipcMain.handle('get-api-data', function (evt, err) { return __awaiter
             "mains": [
                 {
                     "name": "Chicken Burger",
-                    "price": "3.50"
+                    "price": 3.50
+                },
+                {
+                    "name": "Chicken Burger",
+                    "price": 3.50
                 }
             ],
             "sides": [
                 {
                     "name": "Fries",
-                    "price": "2.50"
+                    "price": 2.50
                 }
             ]
         };

@@ -1,0 +1,14 @@
+{
+  "mains": [
+    {
+      "name": "Chicken Burger",
+      "price": "3.50"
+    }
+  ],
+  "sides": [
+    {
+      "name": "Fries",
+      "price": "2.50"
+    }
+  ]
+}
