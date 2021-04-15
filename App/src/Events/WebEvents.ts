@@ -17,6 +17,16 @@ ipcMain.handle('get-api-data', async (evt, err) => {
                 "price": 3.50
             }
         ],
+        "mains2": [
+            {
+                "name": "Chicken Burger",
+                "price": 3.50
+            },
+            {
+                "name": "Chicken Burger",
+                "price": 3.50
+            }
+        ],
         "sides": [
             {
                 "name": "Fries",

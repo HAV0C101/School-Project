@@ -5,10 +5,12 @@ import {useEffect, useState} from "react";
 import {Loading} from "./Componates/Views/Loading/Loading";
 import {HashRouter, Route, Link, Switch} from "react-router-dom";
 import {Menu} from "./Componates/Views/Menu/Menu";
+import RGL, { WidthProvider } from 'react-grid-layout'
 type menu_item = {
     name: string
     price: number
 }
+import '../node_modules/react-grid-layout/css/styles.css'
 type menu = Array<menu_item>
 const App = ():JSX.Element => {
     const [data, setData] = useState(null)
@@ -33,40 +35,48 @@ const App = ():JSX.Element => {
             setData(menus)
         })
     }, [])
+
+    const layout = [
+        {i: 'order_list', x:0, y:0, w:1, h:6, static:true},
+        {i: 'main_window', x:1, y:0, w:4, h:2, static: true}
+    ]
+    const GridLayout = WidthProvider(RGL)
+
+    console.log(window.innerWidth)
     return(
         <div id={'container'}>
-            {
-                data != null ?
-                    <HashRouter>
-                        <Switch>
-                            <Route exact path={'/'} component={() => {
-                                return (<>
-                                    {
-                                        data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
-                                            return (
-                                                <>
-                                                    <Link to={`/menus/${item.menu_name}/items`}>{item.menu_name}</Link>
-                                                    <br/>
-                                                </>
-                                            )
-                                        })
-                                    }
-                                </>)
-                            }
-                            }/>
-                            {
-                            data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
-                                console.log(`${item.menu_name}:`)
-                                console.log(item.nodes)
-                                return (
-                                     <Route key={item.menu_name} path={`/menus/${item.menu_name}/items`} component={() => <Menu props={item}/>}/>
-                                )
-                            })
-                            }
-                        </Switch>
-                    </HashRouter>
-                : <Loading/>
-            }
+            <HashRouter>
+                <GridLayout layout={layout} cols={5}>
+                    <div style={{backgroundColor:'red'}} key={'order_list'}>
+                        {
+                            data != null ?
+                                data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
+                                    return (
+                                        <>
+                                            <Link to={`/menus/${item.menu_name}/items`}>{item.menu_name}</Link>
+                                            <br/>
+                                        </>
+                                    )
+                                })
+                                :
+                                <Loading/>
+                        }
+                    </div>
+                    <div style={{backgroundColor: 'blue'}} key={'main_window'}>
+                        {
+                            data != null ?
+                                data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
+                                    return (
+                                        <Route key={item.menu_name} path={`/menus/${item.menu_name}/items`} component={() => <Menu props={item}/>}/>
+                                    )
+                                })
+                                :
+                                <Loading/>
+                        }
+                    </div>
+                </GridLayout>
+            </HashRouter>
+
         </div>
     )
 }
