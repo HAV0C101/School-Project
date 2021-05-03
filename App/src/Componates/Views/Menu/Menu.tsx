@@ -1,13 +1,13 @@
 import React from "react";
 import {Link, useLocation} from "react-router-dom";
+import RGL, {WidthProvider} from "react-grid-layout";
 
-export const Menu = ({props}:{props:any}):JSX.Element => {
-    const location = useLocation();
-    console.log(props)
+export const Menu = ({item}:{item:any}):JSX.Element => {
+    const GridLayout = WidthProvider(RGL)
+    console.log(item)
     return <div className={'menuContainer'}>
-        <p>{props.menu_name}</p>
-        <p>{location.pathname}</p>
-        {props.nodes}
-        <Link to={'/'}>home</Link>
+        <GridLayout>
+
+        </GridLayout>
     </div>
 }
