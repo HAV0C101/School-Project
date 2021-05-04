@@ -21,13 +21,11 @@ const App = ():JSX.Element => {
             if(menu_data === null) {
                 return
             }
-            console.log(menu_data)
             let i = 0
             const menus:Array<{menu_name:string, nodes:Array<JSX.Element>}> = []
             for(const [key, menu_object] of Object.entries(menu_data)){
                 const new_menu_object = menu_object as menu
                 const complete_menu: Array<JSX.Element> = new_menu_object.map((data:menu_item) => <p onClick={() => setOrder(oldArray => [...oldArray, data])} key={i++}>{data.name}, ${data.price.toFixed(2)}</p>)
-                console.log(key)
                 const complete_menu_object = {
                     menu_name: key,
                     nodes: complete_menu
@@ -64,8 +62,8 @@ const App = ():JSX.Element => {
                                 <Loading/>
                         }
                     </div>
-                    <div style={{backgroundColor:'white'}} key={'order_list'}>
-                        <OrderList items={order}/>
+                    <div className={'testing'} style={{backgroundColor: "white"}} key={'order_list'}>
+                        <OrderList setOrder={setOrder} items={order}/>
                     </div>
                     <div style={{backgroundColor: 'white'}} key={'main_window'}>
                         {

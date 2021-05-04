@@ -4,3 +4,30 @@ body {
   /*max-width: 38rem;*/
   /*padding: 2rem;*/
 }
+.testing {
+    background-image:
+        /* Top jagged */
+            linear-gradient(135deg, slategray 50%, transparent 50%),
+            linear-gradient(225deg, slategray 50%, transparent 50%),
+                /* Bottom jagged */
+            linear-gradient(45deg, slategray 50%, transparent 50%),
+            linear-gradient(-45deg, slategray 50%, transparent 50%);
+    background-position:
+        /* Top jagged */
+            top left, top left,
+                /* Bottom jagged */
+            bottom left, bottom left;
+    background-size: 12px 12px;
+    background-repeat: repeat-x;
+}
+.order-item {
+    position: relative;
+}
+.order-item:hover:before{
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    border-bottom: 1px solid lightcoral;
+    width: 100%;
+}
