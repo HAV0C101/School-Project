@@ -1,6 +1,7 @@
 import React from "react";
 
 type itemType = {
+    menu: string | null
     name: string,
     price: number
 }
@@ -18,11 +19,12 @@ export const OrderList = ({setOrder, items}:{setOrder:any, items: itemType[]}):J
                             if(item == undefined) return
                             return (
                                 <div className={'order-item'} onClick={() => setOrder((order: any[]) =>{
-                                    const newArray = order.splice(index, 1)
-                                    console.log(newArray)
-                                    return newArray
+                                    const testArray = [...order]
+                                    testArray.splice(index, 1)
+                                    return testArray
                                 })} key={index}>
                                     <p style={{float: 'left', marginLeft: '10px'}}>{item.name}</p>
+                                    <p style={{float: 'left', marginLeft: '10px'}}>{item.menu}</p>
                                     <p style={{float: 'right', marginRight: '10px'}}>${item.price.toFixed(2)}</p>
                                     <hr style={{clear: 'both'}}/>
                                 </div>

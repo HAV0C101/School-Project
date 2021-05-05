@@ -7,15 +7,36 @@ ipcMain.handle('get-api-data', async (evt, err) => {
         }>
     }
     const menuData:MenuItems = {
-        "mains": [
+        "Burgers": [
             {
-                "name": "Chicken Burger",
-                "price": 3.50
+                "name": "Plain",
+                "price": 2.50
             },
             {
-                "name": "Chicken Burger",
-                "price": 3.50
-            }
+                "name": "Cheese",
+                "price": 4
+            },
+            {
+                "name": "Egg",
+                "price": 4
+            },
+            {
+                "name": "Pineapple",
+                "price": 4
+            },
+            {
+                "name": "Fish",
+                "price": 4.80
+            },
+            {
+                "name": "Bacon",
+                "price": 4.20
+            },
+            {
+                "name": "Mushroom",
+                "price": 4.20
+            },
+
         ],
         "mains2": [
             {

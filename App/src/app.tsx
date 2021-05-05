@@ -7,6 +7,7 @@ import {HashRouter, Route, Link, Switch} from "react-router-dom";
 import {Menu} from "./Componates/Views/Menu/Menu";
 import RGL, { WidthProvider } from 'react-grid-layout'
 type menu_item = {
+    menu: string | null
     name: string
     price: number
 }
@@ -25,7 +26,10 @@ const App = ():JSX.Element => {
             const menus:Array<{menu_name:string, nodes:Array<JSX.Element>}> = []
             for(const [key, menu_object] of Object.entries(menu_data)){
                 const new_menu_object = menu_object as menu
-                const complete_menu: Array<JSX.Element> = new_menu_object.map((data:menu_item) => <p onClick={() => setOrder(oldArray => [...oldArray, data])} key={i++}>{data.name}, ${data.price.toFixed(2)}</p>)
+                const complete_menu: Array<JSX.Element> = new_menu_object.map((data:menu_item) => {
+                    data.menu = key
+                    return <p onClick={() => setOrder(oldArray => [...oldArray, data])} key={i++}>{data.name}, ${data.price.toFixed(2)}</p>
+                })
                 const complete_menu_object = {
                     menu_name: key,
                     nodes: complete_menu
