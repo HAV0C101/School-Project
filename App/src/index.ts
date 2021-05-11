@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from 'electron';
-declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
+declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -28,12 +28,12 @@ const createWindow = (): void => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools({mode: "detach"});
   mainWindow.on('leave-full-screen', () => {
-    console.log("here")
+    console.log("here");
     setTimeout(() => {
-      mainWindow.setFullScreen(true)
-    }, 1)
+      mainWindow.setFullScreen(true);
+    }, 1);
 
-  })
+  });
 };
 
 // This method will be called when Electron has finished
@@ -63,4 +63,4 @@ app.on('activate', () => {
 // code. You can also put them in separate files and import them here.
 
 // eslint-disable-next-line import/no-unresolved
-import './Events/WebEvents'
+import './Events/WebEvents';

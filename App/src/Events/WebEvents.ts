@@ -1,5 +1,5 @@
-import {ipcMain} from 'electron'
-ipcMain.handle('get-api-data', async (evt, err) => {
+import {ipcMain} from 'electron';
+ipcMain.handle('get-api-data', async () => {
     interface MenuItems {
         [n: string]: Array<{
             name: string
@@ -54,6 +54,6 @@ ipcMain.handle('get-api-data', async (evt, err) => {
                 "price": 2.50
             }
         ]
-    }
-    return menuData
-})
+    };
+    return menuData;
+});
