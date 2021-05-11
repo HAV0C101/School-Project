@@ -37,7 +37,7 @@ const App = ():JSX.Element => {
             for(const [key, menu_object] of Object.entries(menu_data)){
                 let x = 0;
                 let y = 0;
-                setButtonLayout(oldArray => [...oldArray, {i: key, x:layoutX, y:0, w:1, h:0.35, static: true}]);
+                setButtonLayout(oldArray => [...oldArray, {i: key, x:layoutX, y:0, w:1, h:0.305, static: true}]);
                 layoutX = layoutX+1;
                 const new_menu_object = menu_object as menu;
                 const complete_menu: Array<JSX.Element> = new_menu_object.map((data:menu_item) => {
@@ -48,7 +48,7 @@ const App = ():JSX.Element => {
                         y = y + 1;
                         x = 0;
                     }
-                    return <p onClick={() => setOrder(oldArray => [...oldArray, data])} key={id}>{data.name}, ${data.price.toFixed(2)}</p>;
+                    return <p style={{position:'absolute', zIndex:10}} onClick={() => setOrder(oldArray => [...oldArray, data])} key={id}>{data.name}, ${data.price.toFixed(2)}</p>;
                 });
 
                 const complete_menu_object = {
@@ -72,7 +72,7 @@ const App = ():JSX.Element => {
         <div id={'container'}>
             <HashRouter>
                 <GridLayout layout={layout} cols={5}>
-                    <div key={'menu_buttons'}>
+                    <div key={'menu_buttons'} className={'button-layer'}>
                         <GridLayout layout={buttonLayout} cols={9}>
                             {
                                 data != null ?
@@ -91,10 +91,10 @@ const App = ():JSX.Element => {
                             }
                         </GridLayout>
                     </div>
-                    <div className={'testing'} style={{backgroundColor: "white"}} key={'order_list'}>
+                    <div className={'testing'} key={'order_list'}>
                         <OrderList setOrder={setOrder} items={order}/>
                     </div>
-                    <div style={{backgroundColor: 'white'}} key={'main_window'}>
+                    <div className={'main-window'} key={'main_window'}>
                         {
                             data != null ?
                                 data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {

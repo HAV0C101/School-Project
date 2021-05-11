@@ -12,21 +12,21 @@ export const OrderList = ({setOrder, items}:{setOrder:any, items: itemType[]}):J
     }
     return (
         <>
-            <div style={{overflowY: 'auto', height: '90%', marginTop: '20px'}}>
+            <div style={{}} className={'order-list'}>
                 {
                     items != undefined ?
                         items.map((item, index) => {
                             if(item == undefined) return;
                             return (
                                 <div className={'order-item'} onClick={() => setOrder((order: any[]) =>{
-                                    const testArray = [...order]
-                                    testArray.splice(index, 1)
+                                    const testArray = [...order];
+                                    testArray.splice(index, 1);
                                     return testArray;
                                 })} key={index}>
                                     <p style={{float: 'left', marginLeft: '10px'}}>{item.name}</p>
                                     <p style={{float: 'left', marginLeft: '10px'}}>{item.menu}</p>
                                     <p style={{float: 'right', marginRight: '10px'}}>${item.price.toFixed(2)}</p>
-                                    <hr style={{clear: 'both'}}/>
+                                    <hr style={{clear: 'both', border: '1px solid transparent'}}/>
                                 </div>
                             );
                         })

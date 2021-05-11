@@ -10,9 +10,9 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 const createWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
-    fullscreen: true,
+    height: 1080,
+    width: 1920,
+    fullscreen: false,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
@@ -27,13 +27,13 @@ const createWindow = (): void => {
       .catch((err) => console.log('An error occurred: ', err));
   // Open the DevTools.
   mainWindow.webContents.openDevTools({mode: "detach"});
-  mainWindow.on('leave-full-screen', () => {
-    console.log("here");
-    setTimeout(() => {
-      mainWindow.setFullScreen(true);
-    }, 1);
-
-  });
+  // mainWindow.on('leave-full-screen', () => {
+  //   console.log("here");
+  //   setTimeout(() => {
+  //     mainWindow.setFullScreen(true);
+  //   }, 1);
+  //
+  // });
 };
 
 // This method will be called when Electron has finished
