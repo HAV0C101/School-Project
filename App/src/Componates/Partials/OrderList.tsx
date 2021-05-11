@@ -6,9 +6,9 @@ type itemType = {
     price: number
 }
 export const OrderList = ({setOrder, items}:{setOrder:any, items: itemType[]}):JSX.Element => {
-    let total = 0
+    let total = 0;
     for (const itemsKey in items) {
-        total = total + items[itemsKey].price
+        total = total + items[itemsKey].price;
     }
     return (
         <>
@@ -16,19 +16,19 @@ export const OrderList = ({setOrder, items}:{setOrder:any, items: itemType[]}):J
                 {
                     items != undefined ?
                         items.map((item, index) => {
-                            if(item == undefined) return
+                            if(item == undefined) return;
                             return (
                                 <div className={'order-item'} onClick={() => setOrder((order: any[]) =>{
                                     const testArray = [...order]
                                     testArray.splice(index, 1)
-                                    return testArray
+                                    return testArray;
                                 })} key={index}>
                                     <p style={{float: 'left', marginLeft: '10px'}}>{item.name}</p>
                                     <p style={{float: 'left', marginLeft: '10px'}}>{item.menu}</p>
                                     <p style={{float: 'right', marginRight: '10px'}}>${item.price.toFixed(2)}</p>
                                     <hr style={{clear: 'both'}}/>
                                 </div>
-                            )
+                            );
                         })
                         :
                         <p>lol</p>
@@ -38,5 +38,5 @@ export const OrderList = ({setOrder, items}:{setOrder:any, items: itemType[]}):J
                 <p style={{float: 'right', marginRight:'10px'}}>Total: ${total.toFixed(2)}</p>
             </div>
         </>
-    )
-}
+    );
+};

@@ -39,3 +39,6 @@ body {
     position: relative;
     top: 25%;
 }
+.menuButton:hover {
+    background-color: grey;
+}
