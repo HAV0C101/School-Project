@@ -17,19 +17,35 @@ type menu = Array<menu_item>
 const App = ():JSX.Element => {
     const [data, setData] = useState(null)
     const [order, setOrder] = useState([])
+    const [buttonLayout, setButtonLayout] = useState([])
+    const [rawData, setRawData] = useState([])
     useEffect(() => {
         ipcRenderer.invoke('get-api-data').then(async menu_data => {
             if(menu_data === null) {
                 return
             }
+            setRawData(menu_data)
             let i = 0
             const menus:Array<{menu_name:string, nodes:Array<JSX.Element>}> = []
+            let layoutX = 0
+
             for(const [key, menu_object] of Object.entries(menu_data)){
+                let x = 0
+                let y = 0
+                setButtonLayout(oldArray => [...oldArray, {i: key, x:layoutX, y:0, w:1, h:0.30, static: true}])
+                layoutX = layoutX+1
                 const new_menu_object = menu_object as menu
                 const complete_menu: Array<JSX.Element> = new_menu_object.map((data:menu_item) => {
                     data.menu = key
-                    return <p onClick={() => setOrder(oldArray => [...oldArray, data])} key={i++}>{data.name}, ${data.price.toFixed(2)}</p>
+                    const id = x.toString() + y.toString()
+                    x = x+1
+                    if(x === 6) {
+                        y = y + 1
+                        x = 0
+                    }
+                    return <p onClick={() => setOrder(oldArray => [...oldArray, data])} key={id}>{data.name}, ${data.price.toFixed(2)}</p>
                 })
+
                 const complete_menu_object = {
                     menu_name: key,
                     nodes: complete_menu
@@ -51,20 +67,22 @@ const App = ():JSX.Element => {
         <div id={'container'}>
             <HashRouter>
                 <GridLayout layout={layout} cols={5}>
-                    <div style={{backgroundColor: 'white'}} key={'menu_buttons'}>
-                        {
-                            data != null ?
-                                data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
-                                    return (
-                                        <>
-                                            <Link to={`/menus/${item.menu_name}/items`}>{item.menu_name}</Link>
-                                            <br/>
-                                        </>
-                                    )
-                                })
-                                :
-                                <Loading/>
-                        }
+                    <div key={'menu_buttons'}>
+                        <GridLayout layout={buttonLayout} cols={9}>
+                            {
+                                data != null ?
+                                    data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
+                                        return (
+                                            <div  key={item.menu_name} className={'menuButton'}>
+                                                <Link style={{textDecoration:"none"}} to={`/menus/${item.menu_name}/items`}>{item.menu_name}</Link>
+                                                <br/>
+                                            </div>
+                                        )
+                                    })
+                                    :
+                                    <Loading/>
+                            }
+                        </GridLayout>
                     </div>
                     <div className={'testing'} style={{backgroundColor: "white"}} key={'order_list'}>
                         <OrderList setOrder={setOrder} items={order}/>
@@ -74,7 +92,7 @@ const App = ():JSX.Element => {
                             data != null ?
                                 data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
                                     return (
-                                        <Route key={item.menu_name} path={`/menus/${item.menu_name}/items`} component={() => <Menu item={item}/>}/>
+                                        <Route key={item.menu_name} path={`/menus/${item.menu_name}/items`} component={() => <Menu objects={rawData} items={item}/>}/>
                                     )
                                 })
                                 :
