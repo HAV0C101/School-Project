@@ -48,7 +48,9 @@ const App = ():JSX.Element => {
                         y = y + 1;
                         x = 0;
                     }
-                    return <p style={{position:'absolute', zIndex:10}} onClick={() => setOrder(oldArray => [...oldArray, data])} key={id}>{data.name}, ${data.price.toFixed(2)}</p>;
+                    return <div className={'menu-item'} style={{}} onClick={() => setOrder(oldArray => [...oldArray, data])} key={id}>
+                        <p id={'menu-item-text'}>{data.name}, ${data.price.toFixed(2)}</p>
+                    </div>;
                 });
 
                 const complete_menu_object = {
