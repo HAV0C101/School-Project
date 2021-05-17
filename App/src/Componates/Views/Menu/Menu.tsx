@@ -7,18 +7,15 @@ interface MenuItems {
     }>
 }
 export const Menu = ({items, objects}:{items:{menu_name: string, nodes: JSX.Element[]}, objects:MenuItems}):JSX.Element => {
-    console.log(items);
-    console.log(objects);
     let x = 0;
     let y = 0;
     const layoutArray:Layout[] = [];
     for(const [key, object] of Object.entries(objects)){
-        console.log(key);
         if(key == items.menu_name) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            for(const [key2, object2] of Object.entries(object)){
+            for(const item in object){
                 layoutArray.push({i: x.toString() + y.toString(), static: true, x: x, y: y, w:1, h:1});
-                console.log("pushed");
+
                 x = x+1;
                 if(x === 6) {
                     y = y + 1;
@@ -27,7 +24,7 @@ export const Menu = ({items, objects}:{items:{menu_name: string, nodes: JSX.Elem
             }
         }
     }
-    console.log(layoutArray);
+
 
     const GridLayout = WidthProvider(RGL);
     return <div className={'menuContainer'}>

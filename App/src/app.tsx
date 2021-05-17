@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import {ipcRenderer} from "electron";
 import {useEffect, useState} from "react";
 import {Loading} from "./Componates/Views/Loading/Loading";
-import {HashRouter, Route, Link} from "react-router-dom";
+import {HashRouter, Route, NavLink} from "react-router-dom";
 import {Menu} from "./Componates/Views/Menu/Menu";
 import RGL, { WidthProvider } from 'react-grid-layout';
 type menu_item = {
@@ -11,12 +11,7 @@ type menu_item = {
     name: string
     price: number
 }
-interface MenuItems {
-    [n: string]: Array<{
-        name: string
-        price: number
-    }>
-}
+
 import '../node_modules/react-grid-layout/css/styles.css';
 import {OrderList} from "./Componates/Partials/OrderList";
 type menu = Array<menu_item>
@@ -80,12 +75,12 @@ const App = ():JSX.Element => {
                                 data != null ?
                                     data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
                                         return (
-                                            <Link className={'menuButton'} key={item.menu_name} style={{textDecoration:"none"}} to={`/menus/${item.menu_name}/items`}>
+                                            <NavLink activeClassName={'menu-button-active'} className={'menu-button'} key={item.menu_name} style={{textDecoration:"none"}} to={`/menus/${item.menu_name}/items`}>
                                                 <div >
-                                                    {item.menu_name}
+                                                    <p className={'menu-button-name'}>{item.menu_name}</p>
                                                     <br/>
                                                 </div>
-                                            </Link>
+                                            </NavLink>
                                         );
                                     })
                                     :
@@ -93,7 +88,7 @@ const App = ():JSX.Element => {
                             }
                         </GridLayout>
                     </div>
-                    <div className={'testing'} key={'order_list'}>
+                    <div className={'order-list-container'} key={'order_list'}>
                         <OrderList setOrder={setOrder} items={order}/>
                     </div>
                     <div className={'main-window'} key={'main_window'}>

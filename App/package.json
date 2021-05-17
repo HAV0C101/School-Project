@@ -5,7 +5,8 @@
   "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
-    "start": "yarn lint --fix && electron-forge start",
+    "prestart": "yarn lint --fix",
+    "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -13,7 +14,7 @@
   },
   "keywords": [],
   "author": {
-    "name": "Cory",
+    "name": "Cory Keastpither",
     "email": "coder3d9@gmail.com"
   },
   "license": "MIT",

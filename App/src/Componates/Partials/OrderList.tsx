@@ -31,7 +31,7 @@ export const OrderList = ({setOrder, items}:{setOrder:any, items: itemType[]}):J
                             );
                         })
                         :
-                        <p>lol</p>
+                        <p>No Data</p>
                 }
             </div>
             <div style={{height: '5%'}}>

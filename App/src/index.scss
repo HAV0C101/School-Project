@@ -1,4 +1,4 @@
-
+// Variables
 $background: #313E50;
 $secondry-background: #A5A5A5;
 
@@ -9,7 +9,7 @@ body {
     /*max-width: 38rem;*/
     /*padding: 2rem;*/
 }
-.testing {
+.order-list-container {
     background-color: white;
     background-image:
         /* Top jagged */
@@ -25,34 +25,44 @@ body {
             bottom left, bottom left;
     background-size: 12px 12px;
     background-repeat: repeat-x;
+    & .order-item {
+        position: relative;
+        cursor: pointer;
+         :hover:before{
+            content: " ";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            border-bottom: 1px solid lightcoral;
+            width: 100%;
+        }
+    }
 }
-.order-item {
-    position: relative;
-}
-.order-item:hover:before{
-    content: " ";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    border-bottom: 1px solid lightcoral;
-    width: 100%;
-}
-.menuButton {
+.menu-button {
+    height: 100%;
     background-color: $secondry-background;
     text-align: center;
     border-left: 2px solid black;
     border-right: 2px solid black;
     border-top: 2px solid black;
+    & :hover {
+        background-color: darken($secondry-background, 10%);
+    }
+    & div {
+        height: 46px;
+        & .menu-button-name {
+            margin: 0;
+            transform: translateY(50%);
+            color: black;
+        }
+    }
 }
-.menuButton div {
-    /*position: relative;*/
-    top: 25%;
-}
-.menuButton:hover {
+.menu-button-active {
     background-color: darken($secondry-background, 10%);
+    cursor: default;
 }
 .main-window {
-    background-color: $secondry-background;
+    background-color: darken($secondry-background, 10%);;
     border: 2px solid black;
     position: absolute;
     z-index: 0;
@@ -61,9 +71,9 @@ body {
     overflow-y: auto;
     height: 90%;
     margin-top: 20px;
-}
-.order-list div:nth-child(2n)  {
-    background: lightgrey;
+    & div:nth-child(2n)  {
+        background: lightgrey;
+    }
 }
 .button-layer {
     position: absolute;
@@ -73,11 +83,12 @@ body {
     background-color: slategray;
     text-align: center;
     position:absolute;
+    cursor: pointer;
     z-index:10;
-}
-.menu-item:hover {
-    background-color: darken(slategray, 5%);
-}
-.menu-item p[id='menu-item-text']{
-    transform: translateY(220%);
+    &:hover {
+        background-color: darken(slategray, 5%);
+    }
+    & p[id='menu-item-text']{
+        transform: translateY(220%);
+    }
 }
