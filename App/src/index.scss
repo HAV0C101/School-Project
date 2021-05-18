@@ -38,6 +38,10 @@ body {
         }
     }
 }
+.react-grid-item.cssTransforms {
+    transition-property: none !important;
+}
+
 .menu-button {
     height: 100%;
     background-color: $secondry-background;

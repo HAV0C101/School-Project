@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 type itemType = {
     menu: string | null
@@ -10,6 +10,39 @@ export const OrderList = ({setOrder, items}:{setOrder:any, items: itemType[]}):J
     for (const itemsKey in items) {
         total = total + items[itemsKey].price;
     }
+    const [orderArray, setOrderArray] = useState([]);
+    useEffect(() => {
+        for(const item in items) {
+            console.log(items[item])
+            const newObject = {
+                count: 1,
+                name: items[item].name,
+                menu: items[item].menu,
+                price: items[item].price
+            };
+            if(orderArray.length !== 0) {
+                setOrderArray([newObject]);
+            } else {
+                // for(const secondItem in orderArray) {
+                //     if(orderArray[secondItem].name == newObject.name) {
+                //         const newArray = [...orderArray];
+                //         newArray[secondItem].count = newArray[secondItem].count + 1;
+                //         setOrderArray(newArray);
+                //     }
+                // }
+                const found = orderArray.some(obj => obj.name === newObject.name)
+                if(!found) {
+                    setOrderArray(oldArray => [...oldArray, newObject])
+                    console.log(orderArray)
+                } else {
+                    setOrderArray(oldArray => oldArray)
+                    console.log(orderArray)
+                }
+
+
+            }
+        }
+    }, [items]);
     return (
         <>
             <div style={{}} className={'order-list'}>

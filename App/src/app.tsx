@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {ipcRenderer} from "electron";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Loading} from "./Componates/Views/Loading/Loading";
 import {HashRouter, Route, NavLink} from "react-router-dom";
 import {Menu} from "./Componates/Views/Menu/Menu";
@@ -20,11 +20,15 @@ const App = ():JSX.Element => {
     const [order, setOrder] = useState([]);
     const [buttonLayout, setButtonLayout] = useState([]);
     const [rawData, setRawData] = useState(null);
+
+
     useEffect(() => {
         ipcRenderer.invoke('get-api-data').then(async menu_data => {
+            console.log("method called");
             if(menu_data === null) {
                 return;
             }
+
             setRawData(menu_data);
             const menus:Array<{menu_name:string, nodes:Array<JSX.Element>}> = [];
             let layoutX = 0;
@@ -64,11 +68,10 @@ const App = ():JSX.Element => {
         {i: 'main_window', x:1, y:0.35, w:4, h:6.15, static: true}
     ];
     const GridLayout = WidthProvider(RGL);
-
     return(
         <div id={'container'}>
             <HashRouter>
-                <GridLayout layout={layout} cols={5}>
+                <GridLayout measureBeforeMount={true} layout={layout} cols={5}>
                     <div key={'menu_buttons'} className={'button-layer'}>
                         <GridLayout layout={buttonLayout} cols={9}>
                             {
