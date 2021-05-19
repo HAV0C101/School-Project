@@ -10,6 +10,7 @@ type menu_item = {
     menu: string | null
     name: string
     price: number
+    image: string
 }
 
 import '../node_modules/react-grid-layout/css/styles.css';
@@ -20,7 +21,6 @@ const App = ():JSX.Element => {
     const [order, setOrder] = useState([]);
     const [buttonLayout, setButtonLayout] = useState([{i: 'exit', x:9, y:0, w:1, h:0.305, static: true}]);
     const [rawData, setRawData] = useState(null);
-
 
     useEffect(() => {
         ipcRenderer.invoke('get-api-data').then(async menu_data => {
@@ -43,12 +43,14 @@ const App = ():JSX.Element => {
                     data.menu = key;
                     const id = x.toString() + y.toString();
                     x = x+1;
-                    if(x === 6) {
+                    if(x === 3) {
                         y = y + 1;
                         x = 0;
                     }
                     return <div className={'menu-item'} style={{}} onClick={() => setOrder(oldArray => [...oldArray, data])} key={id}>
+                        <img height={250} width={250} src={data.image}/>
                         <p id={'menu-item-text'}>{data.name}, ${data.price.toFixed(2)}</p>
+
                     </div>;
                 });
 

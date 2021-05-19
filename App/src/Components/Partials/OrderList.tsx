@@ -3,8 +3,32 @@ import React, {useEffect, useState} from "react";
 type itemType = {
     menu: string | null
     name: string,
-    price: number
+    price: number,
 }
+interface orderItem extends itemType {
+    arrayIndex: number,
+    count: number
+}
+const OrderRow = ({item, index, setOrder}:{item:orderItem, index:number, setOrder:React.Dispatch<React.SetStateAction<itemType[]>>}) => {
+    return (
+        <div className={'order-item'} onClick={() => setOrder((order: itemType[]) =>{
+            const testArray = [...order];
+            testArray.splice(item.arrayIndex, 1);
+            return testArray;
+        })} key={index}>
+            <div className={'grid-container'}>
+                <div className={'grid-item'}><p className={'item-text'}>{item.count}x</p></div>
+                <div className={'grid-item'}>
+                    <p className={'item-text'}>{item.name} @ ${item.price}</p>
+                    <p className={'item-text'} id={'menu_name'}>{item.menu}</p>
+                </div>
+                <div className={'grid-item'}>
+                    <p className={'item-text'} id={'total'}>${(item.price * item.count).toFixed(0)}</p>
+                </div>
+            </div>
+        </div>
+    );
+};
 export const OrderList = ({setOrder, items}:{setOrder: React.Dispatch<React.SetStateAction<itemType[]>>, items: itemType[]}):JSX.Element => {
     let total = 0;
     for (const itemsKey in items) {
@@ -36,22 +60,12 @@ export const OrderList = ({setOrder, items}:{setOrder: React.Dispatch<React.SetS
             <div style={{}} className={'order-list'}>
                 {
                     orderArray.map((item, index) => {
-                        return <div className={'order-item'} onClick={() => setOrder((order: itemType[]) =>{
-                            const testArray = [...order];
-                            testArray.splice(item.arrayIndex, 1);
-                            return testArray;
-                        })} key={index}>
-                            <p style={{float: 'left', marginLeft: '10px'}}>{item.count} x</p>
-                            <p style={{float: 'left', marginLeft: '10px'}}>{item.name}</p>
-                            <p style={{float: 'left', marginLeft: '10px'}}>{item.menu}</p>
-                            <p style={{float: 'right', marginRight: '10px'}}>${item.price.toFixed(2)}</p>
-                            <hr style={{clear: 'both', border: '1px solid transparent'}}/>
-                        </div>;
+                        return <OrderRow item={item} index={index} setOrder={setOrder} />;
                     })
                 }
             </div>
             <div style={{height: '5%'}}>
-                <p style={{float: 'right', marginRight:'10px'}}>Total: ${total.toFixed(2)}</p>
+                <p style={{float: 'right', marginRight:'10px', fontSize: '25px'}}>Total: ${total.toFixed(2)}</p>
             </div>
         </>
     );

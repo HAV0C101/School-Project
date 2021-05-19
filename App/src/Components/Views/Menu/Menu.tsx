@@ -17,7 +17,7 @@ export const Menu = ({items, objects}:{items:{menu_name: string, nodes: JSX.Elem
                 layoutArray.push({i: x.toString() + y.toString(), static: true, x: x, y: y, w:1, h:1});
 
                 x = x+1;
-                if(x === 6) {
+                if(x === 3) {
                     y = y + 1;
                     x = 0;
                 }
@@ -28,7 +28,7 @@ export const Menu = ({items, objects}:{items:{menu_name: string, nodes: JSX.Elem
 
     const GridLayout = WidthProvider(RGL);
     return <div className={'menuContainer'}>
-        <GridLayout layout={layoutArray} cols={6} >
+        <GridLayout layout={layoutArray} cols={3}  rowHeight={300}>
             {items.nodes}
         </GridLayout>
     </div>;
