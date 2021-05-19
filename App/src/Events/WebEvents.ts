@@ -1,4 +1,4 @@
-import {ipcMain} from 'electron';
+import {ipcMain, app} from 'electron';
 ipcMain.handle('get-api-data', async () => {
     interface MenuItems {
         [n: string]: Array<{
@@ -56,4 +56,8 @@ ipcMain.handle('get-api-data', async () => {
         ]
     };
     return menuData;
+});
+
+ipcMain.on('app-exit', () => {
+    app.exit();
 });

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {ipcRenderer} from "electron";
-import {useEffect, useMemo, useState} from "react";
-import {Loading} from "./Componates/Views/Loading/Loading";
+import {useEffect, useState} from "react";
+import {Loading} from "./Components/Views/Loading/Loading";
 import {HashRouter, Route, NavLink} from "react-router-dom";
-import {Menu} from "./Componates/Views/Menu/Menu";
+import {Menu} from "./Components/Views/Menu/Menu";
 import RGL, { WidthProvider } from 'react-grid-layout';
 type menu_item = {
     menu: string | null
@@ -13,12 +13,12 @@ type menu_item = {
 }
 
 import '../node_modules/react-grid-layout/css/styles.css';
-import {OrderList} from "./Componates/Partials/OrderList";
+import {OrderList} from "./Components/Partials/OrderList";
 type menu = Array<menu_item>
 const App = ():JSX.Element => {
     const [data, setData] = useState(null);
     const [order, setOrder] = useState([]);
-    const [buttonLayout, setButtonLayout] = useState([]);
+    const [buttonLayout, setButtonLayout] = useState([{i: 'exit', x:9, y:0, w:1, h:0.305, static: true}]);
     const [rawData, setRawData] = useState(null);
 
 
@@ -79,7 +79,7 @@ const App = ():JSX.Element => {
                                     data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
                                         return (
                                             <NavLink activeClassName={'menu-button-active'} className={'menu-button'} key={item.menu_name} style={{textDecoration:"none"}} to={`/menus/${item.menu_name}/items`}>
-                                                <div >
+                                                <div>
                                                     <p className={'menu-button-name'}>{item.menu_name}</p>
                                                     <br/>
                                                 </div>
@@ -89,6 +89,11 @@ const App = ():JSX.Element => {
                                     :
                                     <Loading/>
                             }
+                            <div key={'exit'} className={'exit-button'} onClick={() => ipcRenderer.send('app-exit')}>
+                                <div>
+                                    <p className={'exit-button-name'}> Exit</p>
+                                </div>
+                            </div>
                         </GridLayout>
                     </div>
                     <div className={'order-list-container'} key={'order_list'}>
