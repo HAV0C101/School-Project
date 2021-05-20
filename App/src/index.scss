@@ -2,6 +2,22 @@
 $background: #424B54;
 $secondry-background: #D7D9D7;
 $border-colors: #031927;
+
+@mixin rounded($amount: "10px",$position: null) {
+    @if $position != null {
+        @if $position == "top" or $position == "bottom" {
+            border-#{$position}-left-radius: $amount;
+            border-#{$position}-right-radius: $amount;
+        } @else {
+            border-#{$position}-radius: $amount;
+        }
+    } @else {
+        border-radius: $amount;
+    }
+}
+
+
+
 @font-face {
     font-family: 'ostrich_sansblack';
     src: url('./fonts/ostrich-black-webfont.woff2') format('woff2'),
@@ -76,9 +92,11 @@ p {
     border-right: 2px solid $border-colors;
     border-top: 2px solid $border-colors;
     border-bottom: 2px solid $border-colors;
+    @include rounded(10px);
     & :hover {
         background-color: darken($secondry-background, 10%);
         cursor: pointer;
+        border-radius:10px;
     }
     & div {
         height: 38px;
@@ -96,8 +114,10 @@ p {
     border-left: 2px solid $border-colors;
     border-right: 2px solid $border-colors;
     border-top: 2px solid $border-colors;
+    @include rounded(10px, top);
     & :hover {
         background-color: darken($secondry-background, 10%);
+        @include rounded(10px, top);
     }
     & div {
         height: 46px;
@@ -114,6 +134,7 @@ p {
     cursor: default;
 }
 .main-window {
+    border-radius:10px;
     background-color: darken($secondry-background, 10%);
     overflow-y: auto;
     border: 2px solid $border-colors;
@@ -139,6 +160,7 @@ p {
     position:absolute;
     cursor: pointer;
     z-index:10;
+    @include rounded(10px);
     &:hover {
         background-color: darken(#7A9E9F, 5%);
     }

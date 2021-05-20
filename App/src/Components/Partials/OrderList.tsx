@@ -9,6 +9,11 @@ interface orderItem extends itemType {
     arrayIndex: number,
     count: number
 }
+const BottomButtons = ({total, setOrder, order}:{total:number, setOrder:React.Dispatch<React.SetStateAction<itemType[]>>, order:itemType[]}):JSX.Element => {
+    return <div style={{height: '5%'}}>
+        <p style={{float: 'right', marginRight:'10px', fontSize: '25px'}}>Total: ${total.toFixed(2)}</p>
+    </div>
+}
 const OrderRow = ({item, index, setOrder}:{item:orderItem, index:number, setOrder:React.Dispatch<React.SetStateAction<itemType[]>>}) => {
     return (
         <div className={'order-item'} onClick={() => setOrder((order: itemType[]) =>{
@@ -65,9 +70,7 @@ export const OrderList = ({setOrder, items}:{setOrder: React.Dispatch<React.SetS
                     })
                 }
             </div>
-            <div style={{height: '5%'}}>
-                <p style={{float: 'right', marginRight:'10px', fontSize: '25px'}}>Total: ${total.toFixed(2)}</p>
-            </div>
+            <BottomButtons total={total} setOrder={setOrder} order={orderArray}/>
         </>
     );
 };
