@@ -26,6 +26,7 @@ const OrderRow = ({item, index, setOrder}:{item:orderItem, index:number, setOrde
                     <p className={'item-text'} id={'total'}>${(item.price * item.count).toFixed(0)}</p>
                 </div>
             </div>
+            <hr/>
         </div>
     );
 };
@@ -60,7 +61,7 @@ export const OrderList = ({setOrder, items}:{setOrder: React.Dispatch<React.SetS
             <div style={{}} className={'order-list'}>
                 {
                     orderArray.map((item, index) => {
-                        return <OrderRow item={item} index={index} setOrder={setOrder} />;
+                        return <OrderRow key={index} item={item} index={index} setOrder={setOrder} />;
                     })
                 }
             </div>

@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import {ipcRenderer} from "electron";
 import {useEffect, useState} from "react";
 import {Loading} from "./Components/Views/Loading/Loading";
-import {HashRouter, Route, NavLink} from "react-router-dom";
+import {HashRouter, Route, NavLink, Redirect} from "react-router-dom";
 import {Menu} from "./Components/Views/Menu/Menu";
 import RGL, { WidthProvider } from 'react-grid-layout';
 type menu_item = {
@@ -48,7 +48,7 @@ const App = ():JSX.Element => {
                         x = 0;
                     }
                     return <div className={'menu-item'} style={{}} onClick={() => setOrder(oldArray => [...oldArray, data])} key={id}>
-                        <img height={250} width={250} src={data.image}/>
+                        <img alt={'menu item image'} height={250} width={250} src={data.image}/>
                         <p id={'menu-item-text'}>{data.name}, ${data.price.toFixed(2)}</p>
 
                     </div>;
@@ -104,7 +104,17 @@ const App = ():JSX.Element => {
                     <div className={'main-window'} key={'main_window'}>
                         {
                             data != null ?
-                                data.map((item:{menu_name:string, nodes:Array<JSX.Element>}) => {
+                                data.map((item:{menu_name:string, nodes:Array<JSX.Element>},index:number) => {
+                                    if(index === 0){
+                                        return (
+                                            <>
+                                                <Route exact path="/">
+                                                    <Redirect to={`/menus/${item.menu_name}/items`} />
+                                                </Route>
+                                                <Route key={item.menu_name} path={`/menus/${item.menu_name}/items`} component={() => <Menu objects={rawData} items={item}/>}/>
+                                            </>
+                                        );
+                                    }
                                     return (
                                         <Route key={item.menu_name} path={`/menus/${item.menu_name}/items`} component={() => <Menu objects={rawData} items={item}/>}/>
                                     );
