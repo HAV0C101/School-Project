@@ -10,10 +10,20 @@ interface orderItem extends itemType {
     count: number
 }
 const BottomButtons = ({total, setOrder, order}:{total:number, setOrder:React.Dispatch<React.SetStateAction<itemType[]>>, order:itemType[]}):JSX.Element => {
-    return <div style={{height: '5%'}}>
-        <p style={{float: 'right', marginRight:'10px', fontSize: '25px'}}>Total: ${total.toFixed(2)}</p>
-    </div>
-}
+    function clearOrder() {
+        setOrder([]);
+    }
+    return (
+        <>
+            <div style={{height: '5%'}}>
+                <p style={{float: 'right', marginRight:'10px', fontSize: '25px'}}>Total: ${total.toFixed(2)}</p>
+            </div>
+            <div style={{height: '5%'}}>
+                <p style={{float: 'left', marginLeft:'10px', fontSize: '25px', marginBottom: '20px'}} onClick={clearOrder}>Clear Order</p>
+            </div>
+        </>
+    );
+};
 const OrderRow = ({item, index, setOrder}:{item:orderItem, index:number, setOrder:React.Dispatch<React.SetStateAction<itemType[]>>}) => {
     return (
         <div className={'order-item'} onClick={() => setOrder((order: itemType[]) =>{
@@ -63,7 +73,7 @@ export const OrderList = ({setOrder, items}:{setOrder: React.Dispatch<React.SetS
     }, [items]);
     return (
         <>
-            <div style={{}} className={'order-list'}>
+            <div className={'order-list'}>
                 {
                     orderArray.map((item, index) => {
                         return <OrderRow key={index} item={item} index={index} setOrder={setOrder} />;
