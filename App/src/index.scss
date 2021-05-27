@@ -136,6 +136,7 @@ p {
     cursor: default;
 }
 .main-window {
+    height: 90%;
     border-radius:10px;
     background-color: darken($secondry-background, 10%);
     overflow-y: auto;

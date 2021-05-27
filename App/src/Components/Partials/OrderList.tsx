@@ -94,7 +94,7 @@ export const OrderList = ({setOrder, items}:{setOrder: React.Dispatch<React.SetS
     }, [items]);
     return (
         <>
-            <div style={{}} className={'order-list'}>
+            <div className={'order-list'}>
                 {
                     orderArray.map((item, index) => {
                         return <OrderRow key={index} item={item} index={index} setOrder={setOrder} />;
