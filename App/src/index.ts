@@ -1,13 +1,24 @@
+/**
+ * @package TED31 School project
+ * This file is a part of my TED31 2021 project
+ * @copyright Cory Keastpither 2021
+ */
+
+// Imports
 import { app, BrowserWindow } from 'electron';
-declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
+// Consts
+declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
 }
-
+// Functions
 const createWindow = (): void => {
+  /**
+   * Creates the main window of the GUI
+   */
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 1080,
@@ -63,4 +74,6 @@ app.on('activate', () => {
 // code. You can also put them in separate files and import them here.
 
 // eslint-disable-next-line import/no-unresolved
+
+// Import IPC Events
 import './Events/WebEvents';

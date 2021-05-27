@@ -1,5 +1,13 @@
+/**
+ * @package TED31 School project
+ * This file is a part of my TED31 2021 project
+ * @copyright Cory Keastpither 2021
+ */
+
+// Imports
 import React, {useEffect, useState} from "react";
 
+// Types and interfaces
 type itemType = {
     menu: string | null
     name: string,
@@ -9,12 +17,24 @@ interface orderItem extends itemType {
     arrayIndex: number,
     count: number
 }
+
+// Functions
 const BottomButtons = ({total, setOrder, order}:{total:number, setOrder:React.Dispatch<React.SetStateAction<itemType[]>>, order:itemType[]}):JSX.Element => {
     return <div style={{height: '5%'}}>
         <p style={{float: 'right', marginRight:'10px', fontSize: '25px'}}>Total: ${total.toFixed(2)}</p>
-    </div>
-}
+    </div>;
+};
+
 const OrderRow = ({item, index, setOrder}:{item:orderItem, index:number, setOrder:React.Dispatch<React.SetStateAction<itemType[]>>}) => {
+    /**
+     * @function OrderRow
+     * Creates the rows for the Order List
+     * @var item: Item to be displayed on liste
+     * @var index: Index of item
+     * @var setOrder: React Setter
+     *
+     * @returns JSX.Element
+     */
     return (
         <div className={'order-item'} onClick={() => setOrder((order: itemType[]) =>{
             const testArray = [...order];
@@ -36,11 +56,21 @@ const OrderRow = ({item, index, setOrder}:{item:orderItem, index:number, setOrde
     );
 };
 export const OrderList = ({setOrder, items}:{setOrder: React.Dispatch<React.SetStateAction<itemType[]>>, items: itemType[]}):JSX.Element => {
+    /**
+     * @function OrderList
+     * Creates Order list to display current order
+     * @var setOrder: React Setter for order
+     * @var items: Items in order
+     */
+
+    // Functions
     let total = 0;
+    const [orderArray, setOrderArray] = useState([]);
     for (const itemsKey in items) {
         total = total + items[itemsKey].price;
     }
-    const [orderArray, setOrderArray] = useState([]);
+
+    // UseEffects
     useEffect(() => {
         items.forEach((item, index) => {
             const newObject = {
@@ -50,6 +80,7 @@ export const OrderList = ({setOrder, items}:{setOrder: React.Dispatch<React.SetS
                 price: items[index].price,
                 arrayIndex: index,
             };
+            // create order array
             setOrderArray(Array => {
                 if(Array.some(item => item.name === newObject.name && item.menu === newObject.menu)) {
                     const index = Array.findIndex(item => item.name === newObject.name);

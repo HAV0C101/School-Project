@@ -1,5 +1,20 @@
+/**
+ * @package TED31 School project
+ * This file is a part of my TED31 2021 project
+ * @copyright Cory Keastpither 2021
+ */
+
+// Imports
 import {ipcMain, app} from 'electron';
+
+// Functions
 ipcMain.handle('get-api-data', async () => {
+    /**
+     * @function get-api-data
+     * @listens ipcMain
+     * Gets the menu data for the front end to render out
+     * @return menuData Object
+     **/
     interface MenuItems {
         [n: string]: {
             name: string
@@ -188,5 +203,9 @@ ipcMain.handle('get-api-data', async () => {
 });
 
 ipcMain.on('app-exit', () => {
+    /**
+     * @function app-exit
+     * @listens ipcMain
+     */
     app.exit();
 });

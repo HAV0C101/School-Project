@@ -3,6 +3,8 @@ $background: #424B54;
 $secondry-background: #D7D9D7;
 $border-colors: #031927;
 
+
+// Mixins
 @mixin rounded($amount: "10px",$position: null) {
     @if $position != null {
         @if $position == "top" or $position == "bottom" {
@@ -16,8 +18,7 @@ $border-colors: #031927;
     }
 }
 
-
-
+// Fonts
 @font-face {
     font-family: 'ostrich_sansblack';
     src: url('./fonts/ostrich-black-webfont.woff2') format('woff2'),
@@ -26,6 +27,7 @@ $border-colors: #031927;
     font-style: normal;
 }
 
+// SCSS Rules
 body {
     background-color: $background;
     user-select: none;
