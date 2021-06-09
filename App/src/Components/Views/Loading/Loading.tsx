@@ -4,9 +4,7 @@
  * @copyright Cory Keastpither 2021
  */
 
-import React from "react";
-export const Loading = ():JSX.Element => {
-    return (
-        <p>Loading</p>
-    );
+import React from 'react';
+export const Loading = (): JSX.Element => {
+  return <p>Loading</p>;
 };

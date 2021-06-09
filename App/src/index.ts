@@ -6,12 +6,15 @@
 
 // Imports
 import { app, BrowserWindow } from 'electron';
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import installExtension, {
+  REACT_DEVELOPER_TOOLS
+} from 'electron-devtools-installer';
 
-// Consts
+// Constants
 declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+if (require('electron-squirrel-startup')) {
+  // eslint-disable-line global-require
   app.quit();
 }
 // Functions
@@ -27,23 +30,22 @@ const createWindow = (): void => {
     frame: false,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false,
+      contextIsolation: false
     }
   });
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   installExtension(REACT_DEVELOPER_TOOLS)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log('An error occurred: ', err));
+    .then((name) => console.log(`Added Extension:  ${name}`))
+    .catch((err) => console.log('An error occurred: ', err));
   // Open the DevTools.
-  mainWindow.webContents.openDevTools({mode: "detach"});
+  mainWindow.webContents.openDevTools({ mode: 'detach' });
   mainWindow.on('leave-full-screen', () => {
-    console.log("here");
+    console.log('here');
     setTimeout(() => {
       mainWindow.setFullScreen(true);
     }, 1);
-
   });
 };
 
@@ -68,7 +70,6 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.

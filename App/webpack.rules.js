@@ -2,7 +2,7 @@ module.exports = [
   // Add support for native node modules
   {
     test: /\.node$/,
-    use: 'node-loader',
+    use: 'node-loader'
   },
   {
     test: /\.(m?js|node)$/,
@@ -10,9 +10,9 @@ module.exports = [
     use: {
       loader: '@marshallofsound/webpack-asset-relocator-loader',
       options: {
-        outputAssetBase: 'native_modules',
-      },
-    },
+        outputAssetBase: 'native_modules'
+      }
+    }
   },
   {
     test: /\.tsx?$/,
@@ -27,16 +27,16 @@ module.exports = [
   {
     test: /\.s[ac]ss$/i,
     use: [
-      "style-loader",
-      "css-loader",
+      'style-loader',
+      'css-loader',
       {
-        loader: "sass-loader",
+        loader: 'sass-loader',
         options: {
           // Prefer `dart-sass`
-          implementation: require("sass"),
-        },
-      },
-    ],
+          implementation: require('sass')
+        }
+      }
+    ]
   },
   {
     test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -50,5 +50,4 @@ module.exports = [
       }
     ]
   }
-
 ];
